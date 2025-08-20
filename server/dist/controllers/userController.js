@@ -8,11 +8,13 @@ import { delCache, getCache, setCache } from "../utils/cacheInstance.js";
 import logger from "../utils/logger.js";
 import { maskIDLog } from "../utils/masks.js";
 import { generateFrontendToken, generateOtp } from "../utils/randomTokens.js";
+import { clearAuthCookies } from "../utils/clearCookies.js";
+import { cleanInput } from "../utils/helpers.js";
 /**
  * @swagger
  * /users/register:
  *   post:
- *     summary: Register a new user (default role is CEO)
+ *     summary: Register a new CEO
  *     tags:
  *       - Auth
  *     requestBody:
@@ -89,12 +91,12 @@ const registerUser = asyncHandler(async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
     // Check if user exists
-    const userExists = await prisma.users.findUnique({ where: { email } });
+    const userExists = await prisma.ceo.findUnique({ where: { email } });
     if (userExists) {
-        res.status(400);
+        res.status(403);
         throw new Error('User already exists');
     }
-    const user = await prisma.users.create({
+    const user = await prisma.ceo.create({
         data: {
             firstName,
             lastName,
@@ -127,7 +129,7 @@ const registerUser = asyncHandler(async (req, res) => {
         res.status(201).json({
             success: true,
             message: `OTP sent to ${user.email}`,
-            data: {
+            result: {
                 firstName: user.firstName,
                 lastName: user.lastName,
                 email: user.email,
@@ -142,7 +144,7 @@ const registerUser = asyncHandler(async (req, res) => {
  * @swagger
  * /users/register/verify-otp:
  *   post:
- *     summary: Verify registration OTP
+ *     summary: Verify CEO registration OTP
  *     description: Verifies a user's email by checking the OTP sent during registration.
  *     tags:
  *       - Auth
@@ -209,7 +211,7 @@ const verifyRegOtp = asyncHandler(async (req, res) => {
         throw new Error('Invalid OTP');
     }
     // Fetch user from DB
-    const CheckUser = await prisma.users.findUnique({
+    const CheckUser = await prisma.ceo.findUnique({
         where: { email },
     });
     if (!CheckUser) {
@@ -224,7 +226,7 @@ const verifyRegOtp = asyncHandler(async (req, res) => {
     // OTP verified → delete from cache
     await delCache(`otp_${email}`);
     // Mark user as verified in DB
-    const user = await prisma.users.update({
+    const user = await prisma.ceo.update({
         where: { email },
         data: { emailVerified: true },
     });
@@ -236,7 +238,7 @@ const verifyRegOtp = asyncHandler(async (req, res) => {
     res.status(200).json({
         success: true,
         message: 'Email verified successfully',
-        data: {
+        result: {
             id: user.id,
             firstName: user.firstName,
             lastName: user.lastName,
@@ -248,7 +250,7 @@ const verifyRegOtp = asyncHandler(async (req, res) => {
  * @swagger
  * /users/register/verify:
  *   get:
- *     summary: Verify registration via email link
+ *     summary: Verify CEO registration via email link
  *     description: Verifies a user's email using a token from a verification link.
  *     tags:
  *       - Auth
@@ -308,7 +310,7 @@ const verifyRegLink = asyncHandler(async (req, res) => {
     }
     const email = parsed.email;
     // Fetch user from DB
-    const CheckUser = await prisma.users.findUnique({
+    const CheckUser = await prisma.ceo.findUnique({
         where: { email },
     });
     if (!CheckUser) {
@@ -321,7 +323,7 @@ const verifyRegLink = asyncHandler(async (req, res) => {
         throw new Error("Email already verified, Please Login");
     }
     // Mark user as verified in DB
-    const user = await prisma.users.update({
+    const user = await prisma.ceo.update({
         where: { email },
         data: { emailVerified: true },
     });
@@ -334,7 +336,7 @@ const verifyRegLink = asyncHandler(async (req, res) => {
     res.status(200).json({
         success: true,
         message: 'Email verified successfully',
-        data: {
+        result: {
             id: user.id,
             firstName: user.firstName,
             lastName: user.lastName,
@@ -346,7 +348,7 @@ const verifyRegLink = asyncHandler(async (req, res) => {
  * @swagger
  * /users/login:
  *   post:
- *     summary: Login a user
+ *     summary: Login a CEO
  *     tags: [Auth]
  *     requestBody:
  *       required: true
@@ -396,7 +398,7 @@ const verifyRegLink = asyncHandler(async (req, res) => {
  *                       type: string
  *                       format: email
  *                       example: johndoe@example.com
- *       401:
+ *       400:
  *         description: Invalid email or password
  *       403:
  *         description: Email not verified
@@ -406,11 +408,11 @@ const verifyRegLink = asyncHandler(async (req, res) => {
 const loginUser = asyncHandler(async (req, res) => {
     const { email, password } = req.validated.body;
     // Find user by email
-    const user = await prisma.users.findUnique({
+    const user = await prisma.ceo.findUnique({
         where: { email },
     });
     if (!user) {
-        res.status(401);
+        res.status(400);
         throw new Error("Invalid Email or Password");
     }
     // Check if email is verified
@@ -421,7 +423,7 @@ const loginUser = asyncHandler(async (req, res) => {
     // Validate password
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-        res.status(401);
+        res.status(400);
         throw new Error("Invalid Email or Password");
     }
     generateToken(res, user.id);
@@ -432,7 +434,7 @@ const loginUser = asyncHandler(async (req, res) => {
     res.status(200).json({
         success: true,
         message: 'Login Successful',
-        data: {
+        result: {
             id: user.id,
             firstName: user.firstName,
             lastName: user.lastName,
@@ -444,7 +446,7 @@ const loginUser = asyncHandler(async (req, res) => {
  * @swagger
  * /users/logout:
  *   post:
- *     summary: Logout user
+ *     summary: Logout CEO
  *     description: Clears the access and refresh tokens from cookies and logs the user out.
  *     tags: [Auth]
  *     responses:
@@ -462,36 +464,144 @@ const loginUser = asyncHandler(async (req, res) => {
  *         description: Internal server error
  */
 const logoutUser = asyncHandler(async (req, res) => {
-    // res.cookie("access", "", {
-    //     httpOnly: true,
-    //     expires: new Date(0), // force immediate expiration
-    // }) //same thing
-    res.clearCookie("access", {
-        httpOnly: true,
-        sameSite: "strict",
-        secure: process.env.NODE_ENV === "production",
-    });
-    res.clearCookie("refresh", {
-        httpOnly: true,
-        sameSite: "strict",
-        secure: process.env.NODE_ENV === "production",
-    });
+    clearAuthCookies(res);
     res.status(200).json({ message: 'logged out successfully' });
 });
-// @desc    get user profile
-// @route   GET /api/users/profile
-// @access   Private 
+/**
+ * @swagger
+ * /users/profile:
+ *   get:
+ *     summary: Get the logged-in CEO profile
+ *     description: Returns the profile details of the authenticated CEO user.
+ *     tags:
+ *       - [Auth]
+ *     security:
+ *       - cookieAuth: []
+ *     responses:
+ *       200:
+ *         description: Profile fetched successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: Profile fetched successfully
+ *                 result:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: string
+ *                       format: uuid
+ *                       example: "f3b6a7d2-12a4-4c89-bbe5-8a7d7b6cba11"
+ *                     firstName:
+ *                       type: string
+ *                       example: "John"
+ *                     lastName:
+ *                       type: string
+ *                       example: "Doe"
+ *                     email:
+ *                       type: string
+ *                       format: email
+ *                       example: "john@example.com"
+ *                     role:
+ *                       type: string
+ *                       example: "CEO"
+ *       401:
+ *         description: Unauthorized (no token or invalid token)
+ *       500:
+ *         description: Internal Server Error
+ */
 const getUserProfile = asyncHandler(async (req, res) => {
-    const user = {
-        id: req.user._id,
-        name: req.user.name,
-        email: req.user.email,
-    };
-    res.status(200).json(user);
+    res.status(200).json({
+        success: true,
+        message: "Profile fetched successfully",
+        result: {
+            ...req.user
+        }
+    });
 });
-// @desc    Update user profile
-// @route   PATCH /api/users/profile
-// @access   Private 
+/**
+ * @swagger
+ * /users/profile:
+ *   put:
+ *     summary: Update the logged-in CEO profile
+ *     description: Allows the authenticated CEO to update their profile. Both fields are optional.
+ *     tags:
+ *       - [Auth]
+ *     security:
+ *       - cookieAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               firstName:
+ *                 type: string
+ *                 example: "John"
+ *               lastName:
+ *                 type: string
+ *                 example: "Doe"
+ *             additionalProperties: false
+ *     responses:
+ *       200:
+ *         description: Profile updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: Profile updated successfully
+ *                 user:
+ *                   type: object
+ *                   properties:
+ *                     firstName:
+ *                       type: string
+ *                       example: "John"
+ *                     lastName:
+ *                       type: string
+ *                       example: "Doe"
+ *       400:
+ *         description: Profile update failed
+ *       401:
+ *         description: Unauthorized (not logged in or invalid token)
+ *       500:
+ *         description: Internal Server Error
+ */
 const updateUserProfile = asyncHandler(async (req, res) => {
+    const { firstName, lastName } = req.validated.body;
+    try {
+        const updatedUser = await prisma.ceo.update({
+            where: { id: req.user.id },
+            data: {
+                firstName: cleanInput(firstName),
+                lastName: cleanInput(lastName),
+            },
+            select: {
+                firstName: true,
+                lastName: true,
+            },
+        });
+        res.json({
+            success: true,
+            message: "Profile updated successfully",
+            user: updatedUser,
+        });
+    }
+    catch (error) {
+        res.status(400);
+        throw new Error("Profile update failed");
+    }
 });
 export { registerUser, verifyRegOtp, verifyRegLink, loginUser, logoutUser, getUserProfile, updateUserProfile };
