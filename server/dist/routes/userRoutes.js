@@ -1,0 +1,14 @@
+import express from 'express';
+import { registerUser, loginUser, logoutUser, getUserProfile, updateUserProfile, verifyRegOtp, verifyRegLink } from "../controllers/userController.js";
+import { validateMiddleware } from "../middlewares/validateMiddleware.js";
+import { loginSchema, registerSchema, verifyRegLinkSchema, verifyRegSchema } from "../validations/Auth.js";
+import { rateLimitByField } from "../middlewares/rateLimiterMiddleware.js";
+import { protectCEO } from "../middlewares/authMiddleware.js";
+const router = express.Router();
+router.post('/register', rateLimitByField("email", 5, 600), validateMiddleware(registerSchema), registerUser);
+router.post('/register/verify-otp', validateMiddleware(verifyRegSchema), verifyRegOtp);
+router.get('/register/verify', validateMiddleware(verifyRegLinkSchema), verifyRegLink);
+router.post('/login', validateMiddleware(loginSchema), loginUser);
+router.post('/logout', logoutUser);
+router.route('/profile').get(protectCEO, getUserProfile).patch(protectCEO, updateUserProfile);
+export default router;

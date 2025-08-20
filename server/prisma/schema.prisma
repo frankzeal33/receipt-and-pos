@@ -1,0 +1,69 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Ceo {
+  id            String   @id @default(cuid())
+  firstName     String
+  lastName      String
+  email         String   @unique
+  password      String
+  emailVerified Boolean  @default(false)
+  companyID     String   @default(uuid()) @unique
+  staff         Staff[]  // reverse relation
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  // Make (id, companyID) a composite unique identifier
+  @@unique([id, companyID])
+}
+
+enum StaffRole {
+  CO_CEO
+  MANAGER
+  SALES_PERSON
+}
+
+model Staff {
+  id            String   @id @default(cuid())
+  firstName     String
+  lastName      String
+  email         String   @unique
+  password      String
+  emailVerified Boolean  @default(false)
+  role          StaffRole
+
+  ceoId     String
+  companyID String
+
+  // relation field pointing to Ceo.companyID and Ceo.id
+  company   Ceo @relation(fields: [ceoId, companyID], references: [id, companyID], onDelete: Cascade)
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+
+
+
+
+// // Get all staff, including Co-CEOs
+// const staff = await prisma.staff.findMany({
+//   where: { companyID: "uuid1" },
+// });
+
+// // Get all Co-CEOs of a company
+// const coCeoList = await prisma.staff.findMany({
+//   where: { companyID: "uuid1", role: "CO_CEO" },
+// });
+
+// // Get CEO with staff (including co-CEOs)
+// const ceo = await prisma.ceo.findUnique({
+//   where: { email: "ceo@x.com" },
+//   include: { staff: true },
+// });
