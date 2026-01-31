@@ -1,0 +1,27 @@
+import express from 'express'
+import { validateMiddleware } from '../middlewares/validateMiddleware.ts';
+import { addExpenseSchema, addInvoiceSchema, addProductSchema, addStaffSchema, deleteExpenseSchema, deleteInvoiceSchema, deleteStaffSchema, editExpenseSchema, editInvoiceSchema, editProductSchema, editStaffSchema, getInvoiceByIdSchema, paginationcategorySchema, paginationSchema, productIdSchema } from '../validations/Staff.ts';
+import { addExpense, addInvoice, addProduct, addStaff, deleteExpense, deleteInvoice, deleteProduct, deleteStaff, editExpense, editInvoice, editProduct, editStaff, getExpenses, getInvoiceById, getInvoices, getStaffs } from '../controllers/staffController.ts';
+
+const router = express.Router();
+
+router.post('/add-staff', validateMiddleware(addStaffSchema), addStaff);
+router.patch('/edit-staff', validateMiddleware(editStaffSchema), editStaff);
+router.delete('/delete-staff/:staffId', validateMiddleware(deleteStaffSchema), deleteStaff);
+router.post('/add-product', validateMiddleware(addProductSchema), addProduct);
+router.patch('/edit-product', validateMiddleware(editProductSchema), editProduct);
+router.delete('/delete-product/:productId', validateMiddleware(productIdSchema), deleteProduct);
+router.post('/add-expense', validateMiddleware(addExpenseSchema), addExpense);
+router.patch('/edit-expense/:expenseId', validateMiddleware(editExpenseSchema), editExpense);
+router.delete('/delete-expense/:expenseId', validateMiddleware(deleteExpenseSchema), deleteExpense);
+router.post('/add-invoice', validateMiddleware(addInvoiceSchema), addInvoice);
+router.post('/edit-invoice/:invoiceId', validateMiddleware(editInvoiceSchema), editInvoice);
+router.delete('/delete-invoice/:invoiceId', validateMiddleware(deleteInvoiceSchema), deleteInvoice);
+
+router.get('/get-staffs', validateMiddleware(paginationSchema), getStaffs);
+router.get('/get-expenses', validateMiddleware(paginationcategorySchema), getExpenses);
+router.get('/get-invoices',  validateMiddleware(paginationSchema), getInvoices);
+router.get("/get-invoice/:invoiceId",validateMiddleware(getInvoiceByIdSchema), getInvoiceById);
+
+
+export default router;
