@@ -1,0 +1,103 @@
+/* [project]/node_modules/.pnpm/lightgallery@2.9.0/node_modules/lightgallery/css/lg-thumbnail.css [app-client] (css) */
+.lg-outer .lg-thumb-outer {
+  float: left;
+  background-color: #0d0a0a;
+  width: 100%;
+  max-height: 350px;
+  overflow: hidden;
+}
+
+.lg-outer .lg-thumb-outer.lg-grab .lg-thumb-item {
+  cursor: -webkit-grab;
+  cursor: -moz-grab;
+  cursor: -o-grab;
+  cursor: -ms-grab;
+  cursor: grab;
+}
+
+.lg-outer .lg-thumb-outer.lg-grabbing .lg-thumb-item {
+  cursor: move;
+  cursor: -webkit-grabbing;
+  cursor: -moz-grabbing;
+  cursor: -o-grabbing;
+  cursor: -ms-grabbing;
+  cursor: grabbing;
+}
+
+.lg-outer .lg-thumb-outer.lg-dragging .lg-thumb, .lg-outer .lg-thumb-outer.lg-rebuilding-thumbnails .lg-thumb {
+  transition-duration: 0s !important;
+}
+
+.lg-outer .lg-thumb-outer.lg-thumb-align-middle {
+  text-align: center;
+}
+
+.lg-outer .lg-thumb-outer.lg-thumb-align-left {
+  text-align: left;
+}
+
+.lg-outer .lg-thumb-outer.lg-thumb-align-right {
+  text-align: right;
+}
+
+.lg-outer.lg-single-item .lg-thumb-outer {
+  display: none;
+}
+
+.lg-outer .lg-thumb {
+  vertical-align: middle;
+  height: 100%;
+  margin-bottom: -5px;
+  padding: 5px 0;
+  display: inline-block;
+}
+
+@media (min-width: 768px) {
+  .lg-outer .lg-thumb {
+    padding: 10px 0;
+  }
+}
+
+.lg-outer .lg-thumb-item {
+  cursor: pointer;
+  float: left;
+  will-change: border-color;
+  border-radius: 2px;
+  height: 100%;
+  margin-bottom: 5px;
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .lg-outer .lg-thumb-item {
+    -o-transition: border-color .25s ease;
+    border: 2px solid #fff;
+    border-radius: 4px;
+    transition: border-color .25s;
+  }
+}
+
+.lg-outer .lg-thumb-item.active, .lg-outer .lg-thumb-item:hover {
+  border-color: #a90707;
+}
+
+.lg-outer .lg-thumb-item img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.lg-outer.lg-can-toggle .lg-item {
+  padding-bottom: 0;
+}
+
+.lg-outer .lg-toggle-thumb:after {
+  content: "";
+}
+
+.lg-outer.lg-animate-thumb .lg-thumb {
+  transition-timing-function: cubic-bezier(.215, .61, .355, 1);
+}
+
+/*# sourceMappingURL=66c90_lightgallery_css_lg-thumbnail_css_bad6b30c._.single.css.map*/

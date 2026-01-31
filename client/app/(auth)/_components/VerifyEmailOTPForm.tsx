@@ -119,7 +119,7 @@ export function VerifyEmailOTPForm({
     } catch (error: any) {
       toast.error(error.response?.data?.message)
       setOtp("")
-      if(error.response.status === 403 && error.response.data?.message === "Email already verified, Please Login"){
+      if(error.response?.status === 403 && error.response.data?.message === "Email already verified, Please Login"){
         router.push("/login")
       }
     } finally {
@@ -142,7 +142,7 @@ export function VerifyEmailOTPForm({
       toast.success(response.data.message)
       setOtp("")
     } catch (error: any) {
-      if(error.response.status === 403 && error.response.data?.message === "Email already verified, Please Login"){
+      if(error.response?.status === 403 && error.response.data?.message === "Email already verified, Please Login"){
         router.push("/login")
       }
     } finally {

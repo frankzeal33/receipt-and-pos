@@ -1,0 +1,11 @@
+[00:00:00.895] Server  LOG     ✓ Ready in 673ms
+[00:00:19.054] Browser WARN    Image with src "/receipt1.gif" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[00:00:21.699] Browser WARN    Image with src "/receipt1.gif" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[00:00:22.998] Browser WARN    Image with src "/receipt1.gif" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[00:00:37.109] Browser ERROR   unhandledRejection: TypeError: Cannot read properties of undefined (reading 'status')
+[00:02:00.375] Server  LOG     ✓ Compiled in 145ms
+[00:02:49.687] Browser WARN    Image with src "/receipt1.gif" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading

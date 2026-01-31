@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["turbopack:///[project]/node_modules/.pnpm/swiper@12.0.3/node_modules/swiper/modules/mousewheel.css"],"sourcesContent":[""],"names":[],"mappings":"","ignoreList":[0]}}]
+}

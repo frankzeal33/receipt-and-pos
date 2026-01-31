@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///Users/user/Documents/my%20websites/receipt-and-pos/client/app/%28auth%29/layout.tsx"],"sourcesContent":["export default function RootLayout({\r\n  children,\r\n}: Readonly<{\r\n  children: React.ReactNode;\r\n}>) {\r\n  return (\r\n    <main>\r\n      {children}\r\n    </main>\r\n  );\r\n}\r\n"],"names":[],"mappings":";;;;;;AAAe,SAAS,WAAW,EACjC,QAAQ,EAGR;IACA,qBACE,6WAAC;kBACE;;;;;;AAGP"}}]
+}

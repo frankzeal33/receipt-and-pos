@@ -114,7 +114,7 @@ export function RegisterForm({
     } catch (error: any) {
       toast.error(error.response?.data?.message);
 
-      if(error.response.status === 403 && error.response.data?.message === "User already exists, Please login"){
+      if(error.response?.status === 403 && error.response.data?.message === "User already exists, Please login"){
         router.push("/login")
       }
 

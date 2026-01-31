@@ -107,7 +107,7 @@ export function LoginForm({
       } catch (error: any) {
         toast.error(error.response?.data?.error || error.response?.data?.message);
 
-        if(error.response.status === 403 && error.response.data.message === "Please verify your email to log in"){
+        if(error.response?.status === 403 && error.response?.data?.message === "Please verify your email to log in"){
           try {
             const response = await axiosClient.post("/users/register/resend-otp", { email: form.email })
   
