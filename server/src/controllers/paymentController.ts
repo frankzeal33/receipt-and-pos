@@ -69,7 +69,7 @@ export const paystack = asyncHandler(async (req: Request, res: Response): Promis
         // res.json({ status: "success" })
 
     }  catch (error: any) {
-        throw new Error("Verification failed")
+      throw new Error("Verification failed")
     } 
   
 });
