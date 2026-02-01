@@ -5,7 +5,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "nodemon",
-    "build": "tsc && copyfiles -u 1 src/{email_templates,public}/**/* dist",
+    "build": "tsc && copyfiles -u 1 src/{email_templates}/**/* dist",
     "start": "node dist/index.js",
     "dev": "concurrently \"npm:server\" \"npm:build\"",
     "postinstall": "prisma generate",
