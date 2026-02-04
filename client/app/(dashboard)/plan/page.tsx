@@ -1,10 +1,5 @@
 "use client"
-import { FormEvent, useState } from 'react'
-import { z } from 'zod'
-import { cn } from '@/lib/utils'
-import { Label } from '@/components/ui/label'
-import { Input } from '@/components/ui/input'
-import { PaystackButton } from "react-paystack"
+import { useState } from 'react'
 import { pricing } from '@/constants/data'
 import {
   Tabs,
@@ -13,13 +8,6 @@ import {
   TabsTrigger,
 } from "@/components/ui/tabs"
 import AuthPricingCard from '@/components/AuthPricingCard'
-
-const priceSchema = z.object({
-  email: z.string().email("Invalid email address"),
-  amount: z.number().min(100, "Minimum amount is 100").max(1000000, "Maximum amount is 1000000")
-})
-
-type priceFormValues = z.infer<typeof priceSchema>
 
 const page = () => {
 

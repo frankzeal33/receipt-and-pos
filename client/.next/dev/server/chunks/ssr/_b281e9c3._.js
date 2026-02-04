@@ -270,7 +270,7 @@ const inquireMore = [
 const pricing = [
     {
         id: 1,
-        name: 'Free',
+        name: 'FREE',
         desc: 'This package is perfect for beginners who need constant help',
         prices: {
             monthly: 29.99,
@@ -334,8 +334,8 @@ const pricing = [
     },
     {
         id: 2,
-        name: 'Basic',
-        desc: 'This is the perfect package for beginners',
+        name: 'BASIC',
+        desc: 'This is the perfect package for beginners who are getting started',
         prices: {
             monthly: 29.99,
             yearly: 299.99
@@ -398,7 +398,7 @@ const pricing = [
     },
     {
         id: 3,
-        name: 'Business',
+        name: 'BUSINESS',
         desc: 'This package is perfect for busy people who need home service',
         prices: {
             monthly: 29.99,
@@ -462,7 +462,7 @@ const pricing = [
     },
     {
         id: 4,
-        name: 'Enterprise',
+        name: 'ENTERPRISE',
         desc: 'This package is perfect for busy people who need home service',
         prices: {
             monthly: 29.99,

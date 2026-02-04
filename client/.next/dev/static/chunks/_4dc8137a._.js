@@ -183,7 +183,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$ne
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$axios$40$1$2e$11$2e$0$2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/.pnpm/axios@1.11.0/node_modules/axios/lib/axios.js [app-client] (ecmascript)");
 ;
 const axiosClient = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$axios$40$1$2e$11$2e$0$2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].create({
-    baseURL: ("TURBOPACK compile-time value", "http://localhost:5000/api/v1"),
+    baseURL: ("TURBOPACK compile-time value", "http://localhost:4000/api/v1"),
     withCredentials: true
 });
 ;
@@ -397,7 +397,7 @@ function LoginForm({ className, ...props }) {
             });
         } catch (error) {
             __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$react$2d$toastify$40$11$2e$0$2e$5_react$2d$dom$40$19$2e$2$2e$4_react$40$19$2e$2$2e$4_$5f$react$40$19$2e$2$2e$4$2f$node_modules$2f$react$2d$toastify$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].error(error.response?.data?.error || error.response?.data?.message);
-            if (error.response.status === 403 && error.response.data.message === "Please verify your email to log in") {
+            if (error.response?.status === 403 && error.response?.data?.message === "Please verify your email to log in") {
                 try {
                     const response = await __TURBOPACK__imported__module__$5b$project$5d2f$GlobalApi$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["axiosClient"].post("/users/register/resend-otp", {
                         email: form.email

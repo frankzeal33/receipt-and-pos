@@ -7,7 +7,6 @@ import {notFound, errorHandler} from './middlewares/errrorMiddleware.ts'
 import swaggerUi from "swagger-ui-express"
 import swaggerSpec from "./swagger.ts"
 import morgan from "morgan";
-
 import userRoute from './routes/userRoutes.ts'
 import staffRoute from './routes/staffRoutes.ts'
 import saleRoute from './routes/saleRoutes.ts'
@@ -21,23 +20,23 @@ import { UserIDForLogMiddleware } from "./middlewares/UserIDForLogMiddleware.ts"
 import { browserMobileOnlyMiddleware } from "./middlewares/browserMobileOnlyMiddleware.ts";
 import { protectAll, protectCEO_COCEO_GENERAL_ALL_MANAGER } from "./middlewares/authMiddleware.ts";
 
-const port = process.env.PORT || 5000;
-
 dotenv.config();
+
+const port = process.env.PORT || 5000;
 
 const app = express();
 
 app.use(express.json());
-app.use(express.urlencoded({extended: true}))
+app.use(express.urlencoded({ extended: true }))
 
 app.use(cookieParser())
 
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL, 
     credentials: true,       
-    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+    origin: process.env.FRONTEND_URL, 
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"]
   })
 );
 
@@ -67,8 +66,7 @@ app.use('/api/v1/staffs', protectAll,  protectCEO_COCEO_GENERAL_ALL_MANAGER, sta
 app.use('/api/v1/sales', protectAll, saleRoute);
 app.use('/api/v1/ai', protectAll, aiRoute);
 app.use('/api/v1/profile', protectAll, profileRoute);
-app.use("/api/v1/payments", paymentRoute)
-
+app.use("/api/v1/payments", protectAll, paymentRoute)
 
 app.get("/", rateLimitByIP(100, 60), (req: Request, res: Response) => {
   res.status(200).send("server is ready")
@@ -77,9 +75,6 @@ app.get("/", rateLimitByIP(100, 60), (req: Request, res: Response) => {
 app.use(notFound)
 app.use(errorHandler)
 
-
-
 app.listen(port, () => {
   logger.info(`Server running on port ${port}`);
 })
-

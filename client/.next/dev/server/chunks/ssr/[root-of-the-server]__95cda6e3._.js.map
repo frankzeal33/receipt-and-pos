@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 26, "column": 0}, "map": {"version":3,"sources":["file:///Users/user/Documents/my%20websites/receipt-and-pos/client/app/%28landing%29/_components/Banner.tsx"],"sourcesContent":["import React from 'react'\r\n\r\nconst Banner = ({title, desc}: {title: string, desc: string}) => {\r\n  return (\r\n    <section className='p-8 min-h-56 text-center flex flex-col gap-2 items-center justify-center bg-green-100 dark:bg-muted'>\r\n      <h1 className='font-bold text-5xl text-center'>{title}</h1>\r\n      <p className='text-xl text-center'>{desc}</p>\r\n    </section>\r\n  )\r\n}\r\n\r\nexport default Banner"],"names":[],"mappings":";;;;;;AAEA,MAAM,SAAS,CAAC,EAAC,KAAK,EAAE,IAAI,EAAgC;IAC1D,qBACE,6WAAC;QAAQ,WAAU;;0BACjB,6WAAC;gBAAG,WAAU;0BAAkC;;;;;;0BAChD,6WAAC;gBAAE,WAAU;0BAAuB;;;;;;;;;;;;AAG1C;uCAEe"}},
+    {"offset": {"line": 64, "column": 0}, "map": {"version":3,"sources":["file:///Users/user/Documents/my%20websites/receipt-and-pos/client/app/%28landing%29/how-to-use/page.tsx"],"sourcesContent":["import React from 'react'\r\nimport Banner from '../_components/Banner'\r\n\r\nconst page = () => {\r\n  return (\r\n    <section className='min-h-[85vh]'>\r\n      <Banner title='How to Use' desc='Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis, quis.'/>\r\n        \r\n    </section>\r\n  )\r\n}\r\n\r\nexport default page"],"names":[],"mappings":";;;;;AACA;;;AAEA,MAAM,OAAO;IACX,qBACE,6WAAC;QAAQ,WAAU;kBACjB,cAAA,6WAAC,uJAAM;YAAC,OAAM;YAAa,MAAK;;;;;;;;;;;AAItC;uCAEe"}}]
+}

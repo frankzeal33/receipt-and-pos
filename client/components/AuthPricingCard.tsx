@@ -1,10 +1,11 @@
 import { Card } from "@/components/ui/card";
 import { CheckCircle } from "lucide-react";
 import { Billing, PricingPlan } from "@/types/General";
-import { Button } from "./ui/button";
 import { useState } from "react";
 import { PaystackButton } from "react-paystack";
 import { axiosClient } from "@/GlobalApi";
+import { toast } from "react-toastify";
+import { formatEnums } from "@/utils/formatEnums";
 
 const AuthPricingCard = ({
   priceInfo,
@@ -14,12 +15,10 @@ const AuthPricingCard = ({
   billing: Billing
 }) => {
 
-  const price = priceInfo.prices[billing]
-   const amount = price * 100 // Paystack uses kobo
-  const publicKey = process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY
+    const price = priceInfo.prices[billing]
+    const amount = price * 100 // Paystack uses kobo
+    const publicKey = process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY
     const [email, setEmail] = useState("frank@gmail.com")
-    const [name, setName] = useState("frank")
-    const [phone, setPhone] = useState("08043546565")
     const [isSubmitting, setIsSubmitting] = useState(false)
   
     if (!publicKey) {
@@ -31,39 +30,38 @@ const AuthPricingCard = ({
       amount,
       metadata: {
         plan: priceInfo.name,
-        billing,
+        billing: billing.toUpperCase(),
         price,
+        title: "SUBSCRIBE"
       },
       publicKey,
       text: `Upgrade to ${priceInfo.name}`,
       currency: "NGN",
-      channels: ["card", "bank", "ussd", "qr", "mobile_money", "bank_transfer", "opay"],
+      channels: ["card", "bank", "ussd", "qr", "mobile_money", "bank_transfer", "pos"],
       onSuccess: async (res: any) => {
         
-            try {   
-                setIsSubmitting(true)
+        try {   
+            setIsSubmitting(true)
 
-                const { data } = await axiosClient.post("/payments/paystack/verify",
-                    {
-                        reference: res.reference,
-                    }
-                )
+            const { data } = await axiosClient.post("/payments/paystack/verify",
+              {
+                reference: res.reference,
+              }
+            )
 
-                if (data.status === "success") {
-                    alert("Payment success")
-                } else {
-                    alert("Verification failed")
-                }
-            } catch (error: any) {
-                console.error("Verification error:", error)
+            console.log(data)
 
-                alert(
-                    error.response?.data?.message ??
-                    "Payment verification failed"
-                )
-            } finally {
-                setIsSubmitting(false)
+            if (data.success && data.message === "Subscription successfully") {
+              toast.success("Payment Successful");
+            } else {
+              toast.error("Verification Failed, Contact Support")
             }
+        } catch (error: any) {
+
+          toast.error("Verification Failed, Contact Support")
+        } finally {
+          setIsSubmitting(false)
+        }
       },
       onError: () => alert("Payment failed"),
     }
@@ -77,12 +75,11 @@ const AuthPricingCard = ({
           </span>
         </div>
       )}
-      <h3 className="font-bold text-3xl">{priceInfo.name}</h3>
+      <h3 className="font-bold text-3xl">{formatEnums(priceInfo.name)}</h3>
       <h2>{priceInfo.desc}</h2>
       <div className="flex items-end">
         <h1 className="font-bold text-4xl">{`$${price}`}</h1><h2>/{billing === "monthly" ? "monthly" : "yearly"}</h2>
       </div>
-      {/* <Button variant={priceInfo.bestValue ? "primary" : "default"}>{`Upgrade to ${priceInfo.name}`}</Button> */}
       <PaystackButton disabled={isSubmitting} className='bg-green text-white shadow-sm hover:bg-foreground/90 dark:hover:bg-white dark:hover:text-black inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 h-9 px-4 py-2' {...componentProps}/>
       <h4 className="text-lg font-semibold">Features</h4>
       {

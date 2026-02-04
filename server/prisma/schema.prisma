@@ -29,6 +29,10 @@ model User {
   branchId      String?
   branch        Branch?     @relation(fields: [branchId], references: [id], onDelete: Cascade)
 
+  subscription  Subscription?
+
+  payments      Payment[]
+
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
 
@@ -306,6 +310,67 @@ model InvoiceItem {
   invoice         Invoice    @relation(fields: [invoiceId], references: [id])
 }
 
+enum SubscriptionPlan {
+  FREE
+  BASIC
+  BUSINESS
+  ENTERPRISE
+}
+
+enum BillingCycle {
+  MONTHLY
+  YEARLY
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCESS
+  FAILED
+}
+
+enum payingCurrency {
+  NGN
+  USD
+}
+
+model Subscription {
+  id         String           @id @default(cuid())
+  userId     String           @unique
+  companyId  String
+  plan       SubscriptionPlan @default(FREE)
+  billing    BillingCycle
+  active     Boolean          @default(true)
+  expiresAt  DateTime
+
+  user       User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt  DateTime         @default(now())
+  updatedAt  DateTime         @updatedAt
+}
+
+
+model Payment {
+  id         String         @id @default(cuid())
+  reference  String         @unique
+  plan       SubscriptionPlan
+  billing    BillingCycle
+  channel    String
+  amount     Float
+  email      String
+  currency   payingCurrency
+  status     PaymentStatus
+
+  userId     String
+  companyId  String
+  user       User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt  DateTime       @default(now())
+}
+
+
+
+
+
 
 // // Make (id, companyID) a composite unique identifier
 // @@unique([id, companyID])
@@ -327,14 +392,3 @@ model InvoiceItem {
 //     },
 //   },
 // });
-
-// await prisma.user.upsert({
-//   where: { email: "john@example.com" }, // must be unique
-//   update: { role: "CO_CEO" }, // if exists → update
-//   create: { // if not exists → insert
-//     email: "john@example.com",
-//     firstName: "John",
-//     lastName: "Doe",
-//     role: "MANAGER",
-//   },
-// })

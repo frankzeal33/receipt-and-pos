@@ -56,7 +56,7 @@ export function NavMain({
                 <CollapsibleTrigger asChild>
                   <SidebarMenuButton
                     tooltip={item.title}
-                    className={isActive ? "bg-green text-white" : ""}
+                    className={`py-5 ${isActive ? "bg-green text-white" : ""}`}
                   >
                     {item.icon && <item.icon />}
                     <span className="font-semibold text-base">{item.title}</span>
@@ -71,7 +71,7 @@ export function NavMain({
                         <SidebarMenuSubItem key={subItem.title}>
                           <SidebarMenuSubButton
                             asChild
-                            className={subActive ? "bg-green text-white font-semibold" : ""}
+                            className={`py-5 ${subActive ? "bg-green text-white font-semibold" : ""}`}
                           >
                             <a href={subItem.url}>
                               <span className="font-semibold text-base">{subItem.title}</span>
@@ -90,7 +90,7 @@ export function NavMain({
               <SidebarMenuButton
                 asChild
                 tooltip={item.title}
-                className={isActive ? "bg-green text-white font-semibold" : ""}
+                className={`py-5 ${isActive ? "bg-green text-white font-semibold" : ""}`}
               >
                 <a href={item.url}>
                   {item.icon && <item.icon />}

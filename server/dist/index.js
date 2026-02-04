@@ -18,13 +18,18 @@ import { auditLoggerMiddleware } from "./middlewares/auditLoggerMiddleware.js";
 import { UserIDForLogMiddleware } from "./middlewares/UserIDForLogMiddleware.js";
 import { browserMobileOnlyMiddleware } from "./middlewares/browserMobileOnlyMiddleware.js";
 import { protectAll, protectCEO_COCEO_GENERAL_ALL_MANAGER } from "./middlewares/authMiddleware.js";
-const port = process.env.PORT || 5000;
 dotenv.config();
+const port = process.env.PORT || 5000;
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(cors({ credentials: true, origin: process.env.FRONTEND_URL }));
+app.use(cors({
+    credentials: true,
+    origin: process.env.FRONTEND_URL,
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"]
+}));
 // Morgan for request logging (dev only, human-readable)
 if (process.env.NODE_ENV !== "production") {
     app.use(morgan("dev"));
