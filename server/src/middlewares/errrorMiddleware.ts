@@ -19,32 +19,32 @@ const errorHandler = (err: any, req: Request, res: Response, next: NextFunction)
         logger.error(message)
     }
 
-    if(process.env.NODE_ENV === "production"){
+    // if(process.env.NODE_ENV === "production"){
 
-        // Prisma VALIDATION errors (wrong enum, type, missing fields)
-        if (err.name === "PrismaClientValidationError") {
-            statusCode = 400;
-            message = "Invalid request data";
-        }
+    //     // Prisma VALIDATION errors (wrong enum, type, missing fields)
+    //     if (err.name === "PrismaClientValidationError") {
+    //         statusCode = 400;
+    //         message = "Invalid request data";
+    //     }
 
-        // Rare/internal Prisma issues
-        if (err.name === "PrismaClientUnknownRequestError") {
-            statusCode = 400;
-            message = "Internal error occurred";
-        }
+    //     // Rare/internal Prisma issues
+    //     if (err.name === "PrismaClientUnknownRequestError") {
+    //         statusCode = 400;
+    //         message = "Internal error occurred";
+    //     }
 
-        // Prisma failed to connect
-        if (err.name === "PrismaClientInitializationError") {
-            statusCode = 400;
-            message = "Database failed to connect";
-        }
+    //     // Prisma failed to connect
+    //     if (err.name === "PrismaClientInitializationError") {
+    //         statusCode = 400;
+    //         message = "Database failed to connect";
+    //     }
 
-        // Prisma engine crashed
-        if (err.name === "PrismaClientRustPanicError") {
-            statusCode = 400;
-            message = "Try again later";
-        }
-    }
+    //     // Prisma engine crashed
+    //     if (err.name === "PrismaClientRustPanicError") {
+    //         statusCode = 400;
+    //         message = "Try again later";
+    //     }
+    // }
 
 
     // if(err.name === "PrismaClientKnownRequestError"){
