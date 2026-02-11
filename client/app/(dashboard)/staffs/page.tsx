@@ -33,6 +33,7 @@ import AddStaff from './_components/AddStaff'
 import { StaffType } from '@/types/General'
 import StaffMore from './_components/StaffMore'
 import { formatEnums } from '@/utils/formatEnums'
+import { ActiveStatus } from '@/components/ActiveStatus'
 
 const Page = () => {
     
@@ -185,7 +186,7 @@ const Page = () => {
                                         <TableCell className={`capitalize font-semibold`}>{ReduceTextLength(staff?.lastName, 40)}</TableCell>
                                         <TableCell className={`font-semibold`}>{ReduceTextLength(staff?.email, 40)}</TableCell>
                                         <TableCell className={`capitalize font-semibold`}>{formatEnums(staff?.role)}</TableCell>
-                                        <TableCell className={`capitalize font-semibold`}>{formatEnums(staff?.status)}</TableCell>
+                                        <TableCell className={`capitalize font-semibold`}>{<ActiveStatus status={staff?.status}/>}</TableCell>
                                         <TableCell className='capitalize bg-muted/30'>
                                             <StaffMore staff={staff} getStaffs={getStaffs}/>
                                         </TableCell>

@@ -689,8 +689,10 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$re
 var __TURBOPACK__imported__module__$5b$project$5d2f$GlobalApi$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/GlobalApi.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$react$2d$toastify$40$11$2e$0$2e$5_react$2d$dom$40$19$2e$2$2e$4_react$40$19$2e$2$2e$4_$5f$react$40$19$2e$2$2e$4$2f$node_modules$2f$react$2d$toastify$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/.pnpm/react-toastify@11.0.5_react-dom@19.2.4_react@19.2.4__react@19.2.4/node_modules/react-toastify/dist/index.mjs [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$utils$2f$formatEnums$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/utils/formatEnums.ts [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/components/ui/button.tsx [app-client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature();
+;
 ;
 ;
 ;
@@ -718,7 +720,7 @@ const AuthPricingCard = ({ priceInfo, billing })=>{
             title: "SUBSCRIBE"
         },
         publicKey,
-        text: `Upgrade to ${priceInfo.name}`,
+        text: `Choose Plan`,
         currency: "NGN",
         channels: [
             "card",
@@ -732,7 +734,7 @@ const AuthPricingCard = ({ priceInfo, billing })=>{
         onSuccess: async (res)=>{
             try {
                 setIsSubmitting(true);
-                const { data } = await __TURBOPACK__imported__module__$5b$project$5d2f$GlobalApi$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["axiosClient"].post("/payments/paystack/verify", {
+                const { data } = await __TURBOPACK__imported__module__$5b$project$5d2f$GlobalApi$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["axiosClient"].post("/payment/paystack/verify", {
                     reference: res.reference
                 });
                 console.log(data);
@@ -759,12 +761,12 @@ const AuthPricingCard = ({ priceInfo, billing })=>{
                     children: "BEST VALUE"
                 }, void 0, false, {
                     fileName: "[project]/components/AuthPricingCard.tsx",
-                    lineNumber: 73,
+                    lineNumber: 74,
                     columnNumber: 11
                 }, ("TURBOPACK compile-time value", void 0))
             }, void 0, false, {
                 fileName: "[project]/components/AuthPricingCard.tsx",
-                lineNumber: 72,
+                lineNumber: 73,
                 columnNumber: 9
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$1$2e$6_react$2d$dom$40$19$2e$2$2e$4_react$40$19$2e$2$2e$4_$5f$react$40$19$2e$2$2e$4$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -772,14 +774,14 @@ const AuthPricingCard = ({ priceInfo, billing })=>{
                 children: (0, __TURBOPACK__imported__module__$5b$project$5d2f$utils$2f$formatEnums$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["formatEnums"])(priceInfo.name)
             }, void 0, false, {
                 fileName: "[project]/components/AuthPricingCard.tsx",
-                lineNumber: 78,
+                lineNumber: 79,
                 columnNumber: 7
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$1$2e$6_react$2d$dom$40$19$2e$2$2e$4_react$40$19$2e$2$2e$4_$5f$react$40$19$2e$2$2e$4$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
                 children: priceInfo.desc
             }, void 0, false, {
                 fileName: "[project]/components/AuthPricingCard.tsx",
-                lineNumber: 79,
+                lineNumber: 80,
                 columnNumber: 7
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$1$2e$6_react$2d$dom$40$19$2e$2$2e$4_react$40$19$2e$2$2e$4_$5f$react$40$19$2e$2$2e$4$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -790,7 +792,7 @@ const AuthPricingCard = ({ priceInfo, billing })=>{
                         children: `$${price}`
                     }, void 0, false, {
                         fileName: "[project]/components/AuthPricingCard.tsx",
-                        lineNumber: 81,
+                        lineNumber: 82,
                         columnNumber: 9
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$1$2e$6_react$2d$dom$40$19$2e$2$2e$4_react$40$19$2e$2$2e$4_$5f$react$40$19$2e$2$2e$4$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -800,30 +802,37 @@ const AuthPricingCard = ({ priceInfo, billing })=>{
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/AuthPricingCard.tsx",
-                        lineNumber: 81,
+                        lineNumber: 82,
                         columnNumber: 62
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/AuthPricingCard.tsx",
-                lineNumber: 80,
+                lineNumber: 81,
                 columnNumber: 7
             }, ("TURBOPACK compile-time value", void 0)),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$1$2e$6_react$2d$dom$40$19$2e$2$2e$4_react$40$19$2e$2$2e$4_$5f$react$40$19$2e$2$2e$4$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$react$2d$paystack$40$6$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$4_react$40$19$2e$2$2e$4_$5f$react$40$19$2e$2$2e$4$2f$node_modules$2f$react$2d$paystack$2f$dist$2f$index$2e$es$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PaystackButton"], {
+            priceInfo.name === "FREE" ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$1$2e$6_react$2d$dom$40$19$2e$2$2e$4_react$40$19$2e$2$2e$4_$5f$react$40$19$2e$2$2e$4$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
+                variant: "outline",
+                children: "Current Plan"
+            }, void 0, false, {
+                fileName: "[project]/components/AuthPricingCard.tsx",
+                lineNumber: 85,
+                columnNumber: 9
+            }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$1$2e$6_react$2d$dom$40$19$2e$2$2e$4_react$40$19$2e$2$2e$4_$5f$react$40$19$2e$2$2e$4$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$react$2d$paystack$40$6$2e$0$2e$0_react$2d$dom$40$19$2e$2$2e$4_react$40$19$2e$2$2e$4_$5f$react$40$19$2e$2$2e$4$2f$node_modules$2f$react$2d$paystack$2f$dist$2f$index$2e$es$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PaystackButton"], {
                 disabled: isSubmitting,
                 className: "bg-green text-white shadow-sm hover:bg-foreground/90 dark:hover:bg-white dark:hover:text-black inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 h-9 px-4 py-2",
                 ...componentProps
             }, void 0, false, {
                 fileName: "[project]/components/AuthPricingCard.tsx",
-                lineNumber: 83,
-                columnNumber: 7
+                lineNumber: 87,
+                columnNumber: 9
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$1$2e$6_react$2d$dom$40$19$2e$2$2e$4_react$40$19$2e$2$2e$4_$5f$react$40$19$2e$2$2e$4$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h4", {
                 className: "text-lg font-semibold",
                 children: "Features"
             }, void 0, false, {
                 fileName: "[project]/components/AuthPricingCard.tsx",
-                lineNumber: 84,
+                lineNumber: 89,
                 columnNumber: 7
             }, ("TURBOPACK compile-time value", void 0)),
             priceInfo.features.map(({ feature, available }, index)=>{
@@ -835,7 +844,7 @@ const AuthPricingCard = ({ priceInfo, billing })=>{
                             className: "text-green"
                         }, void 0, false, {
                             fileName: "[project]/components/AuthPricingCard.tsx",
-                            lineNumber: 89,
+                            lineNumber: 94,
                             columnNumber: 15
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$1$2e$6_react$2d$dom$40$19$2e$2$2e$4_react$40$19$2e$2$2e$4_$5f$react$40$19$2e$2$2e$4$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -843,20 +852,20 @@ const AuthPricingCard = ({ priceInfo, billing })=>{
                             children: feature
                         }, index, false, {
                             fileName: "[project]/components/AuthPricingCard.tsx",
-                            lineNumber: 90,
+                            lineNumber: 95,
                             columnNumber: 15
                         }, ("TURBOPACK compile-time value", void 0))
                     ]
                 }, index, true, {
                     fileName: "[project]/components/AuthPricingCard.tsx",
-                    lineNumber: 88,
+                    lineNumber: 93,
                     columnNumber: 13
                 }, ("TURBOPACK compile-time value", void 0));
             })
         ]
     }, void 0, true, {
         fileName: "[project]/components/AuthPricingCard.tsx",
-        lineNumber: 70,
+        lineNumber: 71,
         columnNumber: 5
     }, ("TURBOPACK compile-time value", void 0));
 };
@@ -881,6 +890,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$ne
 var __TURBOPACK__imported__module__$5b$project$5d2f$constants$2f$data$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/constants/data.ts [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$tabs$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/components/ui/tabs.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$AuthPricingCard$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/components/AuthPricingCard.tsx [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$GlobalApi$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/GlobalApi.tsx [app-client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature();
 "use client";
@@ -888,9 +898,23 @@ var _s = __turbopack_context__.k.signature();
 ;
 ;
 ;
+;
 const page = ()=>{
     _s();
     const [billing, setBilling] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$1$2e$6_react$2d$dom$40$19$2e$2$2e$4_react$40$19$2e$2$2e$4_$5f$react$40$19$2e$2$2e$4$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("monthly");
+    const [subscriptionStatus, setSubscriptionStatus] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$1$2e$6_react$2d$dom$40$19$2e$2$2e$4_react$40$19$2e$2$2e$4_$5f$react$40$19$2e$2$2e$4$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
+    const getSubscription = async ()=>{
+        try {
+            const result = await __TURBOPACK__imported__module__$5b$project$5d2f$GlobalApi$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["axiosClient"].get("/subscription/get-subscription");
+            console.log(result.data);
+            setSubscriptionStatus(result.data?.result);
+        } catch (error) {} finally{}
+    };
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$1$2e$6_react$2d$dom$40$19$2e$2$2e$4_react$40$19$2e$2$2e$4_$5f$react$40$19$2e$2$2e$4$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "page.useEffect": ()=>{
+            getSubscription();
+        }
+    }["page.useEffect"], []);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$1$2e$6_react$2d$dom$40$19$2e$2$2e$4_react$40$19$2e$2$2e$4_$5f$react$40$19$2e$2$2e$4$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$1$2e$6_react$2d$dom$40$19$2e$2$2e$4_react$40$19$2e$2$2e$4_$5f$react$40$19$2e$2$2e$4$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$1$2e$6_react$2d$dom$40$19$2e$2$2e$4_react$40$19$2e$2$2e$4_$5f$react$40$19$2e$2$2e$4$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$tabs$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Tabs"], {
@@ -909,7 +933,7 @@ const page = ()=>{
                                     children: "Monthly"
                                 }, void 0, false, {
                                     fileName: "[project]/app/(dashboard)/plan/page.tsx",
-                                    lineNumber: 22,
+                                    lineNumber: 41,
                                     columnNumber: 15
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$1$2e$6_react$2d$dom$40$19$2e$2$2e$4_react$40$19$2e$2$2e$4_$5f$react$40$19$2e$2$2e$4$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$tabs$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["TabsTrigger"], {
@@ -918,18 +942,18 @@ const page = ()=>{
                                     children: "Yearly"
                                 }, void 0, false, {
                                     fileName: "[project]/app/(dashboard)/plan/page.tsx",
-                                    lineNumber: 23,
+                                    lineNumber: 42,
                                     columnNumber: 15
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/(dashboard)/plan/page.tsx",
-                            lineNumber: 21,
+                            lineNumber: 40,
                             columnNumber: 13
                         }, ("TURBOPACK compile-time value", void 0))
                     }, void 0, false, {
                         fileName: "[project]/app/(dashboard)/plan/page.tsx",
-                        lineNumber: 20,
+                        lineNumber: 39,
                         columnNumber: 11
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$1$2e$6_react$2d$dom$40$19$2e$2$2e$4_react$40$19$2e$2$2e$4_$5f$react$40$19$2e$2$2e$4$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$tabs$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["TabsContent"], {
@@ -941,37 +965,37 @@ const page = ()=>{
                                     billing: billing
                                 }, priceInfo.id, false, {
                                     fileName: "[project]/app/(dashboard)/plan/page.tsx",
-                                    lineNumber: 29,
+                                    lineNumber: 48,
                                     columnNumber: 17
                                 }, ("TURBOPACK compile-time value", void 0)))
                         }, void 0, false, {
                             fileName: "[project]/app/(dashboard)/plan/page.tsx",
-                            lineNumber: 27,
+                            lineNumber: 46,
                             columnNumber: 13
                         }, ("TURBOPACK compile-time value", void 0))
                     }, void 0, false, {
                         fileName: "[project]/app/(dashboard)/plan/page.tsx",
-                        lineNumber: 26,
+                        lineNumber: 45,
                         columnNumber: 11
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/(dashboard)/plan/page.tsx",
-                lineNumber: 19,
+                lineNumber: 38,
                 columnNumber: 9
             }, ("TURBOPACK compile-time value", void 0))
         }, void 0, false, {
             fileName: "[project]/app/(dashboard)/plan/page.tsx",
-            lineNumber: 18,
+            lineNumber: 37,
             columnNumber: 7
         }, ("TURBOPACK compile-time value", void 0))
     }, void 0, false, {
         fileName: "[project]/app/(dashboard)/plan/page.tsx",
-        lineNumber: 17,
+        lineNumber: 36,
         columnNumber: 5
     }, ("TURBOPACK compile-time value", void 0));
 };
-_s(page, "OVbAYA77574cskxk/e4n0vYocgI=");
+_s(page, "WV2rhbdOTB/WAkoSgEQ0oN+i/IU=");
 const __TURBOPACK__default__export__ = page;
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);

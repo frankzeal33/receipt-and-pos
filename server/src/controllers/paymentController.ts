@@ -2,8 +2,9 @@ import { Request, Response } from "express";
 import asyncHandler from "express-async-handler";
 import prisma from "../utils/db.ts";
 import axios from "axios"
-import { paystackVerifyInput } from "../types/zodtypes/paymentType.ts";
+import { paymentHistoryPaginationInput, paystackVerifyInput } from "../types/zodtypes/paymentType.ts";
 import { calculateExpiry, getBaseDate } from "../utils/subscription.ts";
+import { mapPaystackStatusToDb } from "../utils/mapPaystackStatusToDb.ts";
 
 export const paystackVerifyPayment = asyncHandler(async (req: Request, res: Response): Promise<void> => {
 
@@ -29,7 +30,7 @@ export const paystackVerifyPayment = asyncHandler(async (req: Request, res: Resp
         throw new Error("Verification Failed")
     }
 
-    const { amount, metadata, channel, currency } = payment
+    const { amount, metadata, channel, currency, status } = payment
     const { plan, billing, price, title } = metadata
 
     const expectedAmount = amount / 100
@@ -52,9 +53,8 @@ export const paystackVerifyPayment = asyncHandler(async (req: Request, res: Resp
                 billing,
                 channel,
                 amount: expectedAmount,
-                email: email,
                 currency,
-                status: "SUCCESS"
+                status: mapPaystackStatusToDb(status)
             },
         })
 
@@ -62,47 +62,13 @@ export const paystackVerifyPayment = asyncHandler(async (req: Request, res: Resp
 
         // Get existing subscription (if any)
         const existingSub = await tx.subscription.findUnique({
-            where: { userId, companyId },
+            where: { companyId },
         })
 
         // Decide what to do based on title
         let expiresAt: Date | null = null
 
         switch (title) {
-            case "SUBSCRIBE":
-                // First time subscription or new plan
-                if (existingSub) {
-                    res.status(400)
-                    throw new Error("This company is already a subscriber, please renew instead")
-                }
-
-                const baseDateSubscribe = new Date()
-                expiresAt = calculateExpiry(billing, baseDateSubscribe)
-
-                await tx.subscription.upsert({
-                    where: { userId, companyId }, // must be unique
-                    update: { // if exists → update
-                        plan,
-                        billing,
-                        active: true,
-                        expiresAt,
-                    },
-                    create: { // if not exists → insert
-                        userId,
-                        companyId,
-                        plan,
-                        billing,
-                        active: true,
-                        expiresAt,
-                    },
-                })
-
-                res.status(200).json({
-                    success: true,
-                    message: "Subscription successfully",
-                    expiresAt,
-                })
-            break
 
             // Monthly → Yearly (Keeps remaining time)
             case "UPGRADE":
@@ -115,7 +81,7 @@ export const paystackVerifyPayment = asyncHandler(async (req: Request, res: Resp
                 expiresAt = calculateExpiry(billing, baseDateUpgrade)
 
                 await tx.subscription.update({
-                    where: { userId, companyId },
+                    where: { companyId },
                     data: {
                         plan,
                         billing,
@@ -126,8 +92,7 @@ export const paystackVerifyPayment = asyncHandler(async (req: Request, res: Resp
 
                 res.status(200).json({
                     success: true,
-                    message: "Subscription upgraded to yearly",
-                    expiresAt,
+                    message: "Subscription upgraded to yearly"
                 })
             break
 
@@ -137,11 +102,23 @@ export const paystackVerifyPayment = asyncHandler(async (req: Request, res: Resp
                     res.status(400)
                     throw new Error("No active subscription to downgrade")
                 }
+
+                if (plan === "FREE") {
+                    res.status(400)
+                    throw new Error("Free plan dont need a payment")
+                }
+
+                const baseDateDowngrade = getBaseDate(existingSub.expiresAt)
+                expiresAt = calculateExpiry(billing, baseDateDowngrade)
+
                 // schedule downgrade after current expiry
                 await tx.subscription.update({
-                    where: { userId, companyId },
+                    where: { companyId },
                     data: {
-                        billing: "MONTHLY",
+                        plan,
+                        billing,
+                        active: true,
+                        expiresAt,
                     },
                 })
 
@@ -161,7 +138,7 @@ export const paystackVerifyPayment = asyncHandler(async (req: Request, res: Resp
                 expiresAt = calculateExpiry(billing, baseDateTopup)
 
                 await tx.subscription.update({
-                    where: { userId, companyId },
+                    where: { companyId },
                     data: {
                         expiresAt,
                         active: true,
@@ -170,8 +147,7 @@ export const paystackVerifyPayment = asyncHandler(async (req: Request, res: Resp
 
                 res.status(200).json({
                     success: true,
-                    message: "Subscription renewed successfully",
-                    expiresAt
+                    message: "Subscription renewed successfully"
                 })
 
             break
@@ -181,6 +157,59 @@ export const paystackVerifyPayment = asyncHandler(async (req: Request, res: Resp
                 throw new Error("Unable to detect payment plan")
         }
     })
+
+  }
+)
+
+export const paymentHistory = asyncHandler(async (req: Request, res: Response): Promise<void> => {
+
+    
+  const { page, limit } = (req.validated as paymentHistoryPaginationInput).query;
+  
+  const skip = (page - 1) * limit;
+
+  // filters
+  const where: any = { companyId: req.user.companyId };
+
+  // count
+  const totalCount = await prisma.payment.count({ where });
+
+  // fetch
+  const history = await prisma.payment.findMany({
+    where,
+    skip,
+    take: limit,
+    orderBy: { createdAt: "desc" },
+    include: {
+    user: {
+        select: {
+            email: true,
+            role: true,
+        },
+        },
+    },
+  });
+
+  // calculate total pages
+  const totalPages = Math.ceil(totalCount / limit);
+
+  // response
+  res.status(200).json({
+    success: true,
+    message: "Payments fetched successfully",
+    pagination: { 
+      totalCount,
+      totalPages,
+      currentPage: page,
+      limit,
+      count: history.length,
+      hasNextPage: page < totalPages,
+      hasPrevPage: page > 1,
+      nextPage: page < totalPages ? page + 1 : null,
+      prevPage: page > 1 ? page - 1 : null,
+    },
+    result: history,
+  });
 
   }
 )

@@ -78,17 +78,16 @@ export function NavUser()
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <Sparkles />
-                Upgrade to Pro
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
-            <DropdownMenuSeparator />
-            <DropdownMenuGroup>
               <Link href="/account">
                 <DropdownMenuItem>
                   <BadgeCheck />
                     Account
+                </DropdownMenuItem>
+              </Link>
+              <Link href="/plan/subscription">
+                <DropdownMenuItem>
+                  <CreditCard />
+                  My Subscription
                 </DropdownMenuItem>
               </Link>
               <Link href="/plan">

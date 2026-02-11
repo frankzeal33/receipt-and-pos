@@ -125,6 +125,17 @@ const registerUser = asyncHandler(async (req, res) => {
                 branchId: null,
             },
         });
+        // Auto-create Head Office branch
+        const subscription = await tx.subscription.create({
+            data: {
+                userId: newUser.id,
+                companyId: company.id,
+                plan: "FREE",
+                billing: "MONTHLY",
+                active: true,
+                expiresAt: null,
+            },
+        });
         // Insert CEO notification
         await tx.userNotification.create({
             data: {

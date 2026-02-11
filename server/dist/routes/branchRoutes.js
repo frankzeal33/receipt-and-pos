@@ -1,0 +1,14 @@
+import express from 'express';
+import { validateMiddleware } from "../middlewares/validateMiddleware.js";
+import { getInvoiceByIdSchema, paginationSchema } from "../validations/Staff.js";
+import { getInvoiceById } from "../controllers/staffController.js";
+import { addBranch, deleteBranch, disableEnableBranch, editBranch, getBranches } from "../controllers/branchController.js";
+import { addBranchSchema, deleteBranchSchema, editBranchSchema, enableDisableBranchSchema } from "../validations/branch.js";
+const router = express.Router();
+router.post('/add-branch', validateMiddleware(addBranchSchema), addBranch);
+router.patch('/edit-branch', validateMiddleware(editBranchSchema), editBranch);
+router.patch('/disable-branch/:branchId', validateMiddleware(enableDisableBranchSchema), disableEnableBranch);
+router.delete('/delete-branch/:branchId', validateMiddleware(deleteBranchSchema), deleteBranch);
+router.get('/get-branches', validateMiddleware(paginationSchema), getBranches);
+router.get("/get-invoice/:invoiceId", validateMiddleware(getInvoiceByIdSchema), getInvoiceById);
+export default router;

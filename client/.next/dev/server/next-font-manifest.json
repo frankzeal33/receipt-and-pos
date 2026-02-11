@@ -1,9 +1,39 @@
 {
   "app": {
+    "[project]/app/(auth)/register/page": [
+      "static/media/07454f8ad8aaac57-s.p.fc65572f.woff2"
+    ],
+    "[project]/app/(auth)/verify-email/page": [
+      "static/media/07454f8ad8aaac57-s.p.fc65572f.woff2"
+    ],
+    "[project]/app/(dashboard)/account/page": [
+      "static/media/07454f8ad8aaac57-s.p.fc65572f.woff2"
+    ],
+    "[project]/app/(dashboard)/branches/page": [
+      "static/media/07454f8ad8aaac57-s.p.fc65572f.woff2"
+    ],
+    "[project]/app/(dashboard)/customers/page": [
+      "static/media/07454f8ad8aaac57-s.p.fc65572f.woff2"
+    ],
+    "[project]/app/(dashboard)/dashboard/page": [
+      "static/media/07454f8ad8aaac57-s.p.fc65572f.woff2"
+    ],
+    "[project]/app/(dashboard)/notifications/page": [
+      "static/media/07454f8ad8aaac57-s.p.fc65572f.woff2"
+    ],
     "[project]/app/(dashboard)/plan/page": [
       "static/media/07454f8ad8aaac57-s.p.fc65572f.woff2"
     ],
-    "[project]/app/(dashboard)/reports/sales/page": [
+    "[project]/app/(dashboard)/plan/subscription/page": [
+      "static/media/07454f8ad8aaac57-s.p.fc65572f.woff2"
+    ],
+    "[project]/app/(dashboard)/settings/page": [
+      "static/media/07454f8ad8aaac57-s.p.fc65572f.woff2"
+    ],
+    "[project]/app/(dashboard)/staffs/page": [
+      "static/media/07454f8ad8aaac57-s.p.fc65572f.woff2"
+    ],
+    "[project]/app/(landing)/page": [
       "static/media/07454f8ad8aaac57-s.p.fc65572f.woff2"
     ]
   },

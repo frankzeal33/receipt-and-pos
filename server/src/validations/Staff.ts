@@ -30,8 +30,8 @@ export const editStaffSchema = z.object({
     role: z.enum(["CO_CEO", "MANAGER", "SALES_PERSON"], {
       message: "Role must be CO_CEO, MANAGER, or SALES_PERSON",
     }).optional(),
-    status: z.enum(["ACTIVE", "IN_ACTIVE"], {
-      message: "Status must be ACTIVE or IN_ACTIVE",
+    status: z.enum(["ACTIVE", "INACTIVE"], {
+      message: "Status must be ACTIVE or INACTIVE",
     }).optional()
   }),
 });

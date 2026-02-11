@@ -1,4 +1,14 @@
 {
+  "/(auth)/register/page": "app/(auth)/register/page.js",
+  "/(auth)/verify-email/page": "app/(auth)/verify-email/page.js",
+  "/(dashboard)/account/page": "app/(dashboard)/account/page.js",
+  "/(dashboard)/branches/page": "app/(dashboard)/branches/page.js",
+  "/(dashboard)/customers/page": "app/(dashboard)/customers/page.js",
+  "/(dashboard)/dashboard/page": "app/(dashboard)/dashboard/page.js",
+  "/(dashboard)/notifications/page": "app/(dashboard)/notifications/page.js",
   "/(dashboard)/plan/page": "app/(dashboard)/plan/page.js",
-  "/(dashboard)/reports/sales/page": "app/(dashboard)/reports/sales/page.js"
+  "/(dashboard)/plan/subscription/page": "app/(dashboard)/plan/subscription/page.js",
+  "/(dashboard)/settings/page": "app/(dashboard)/settings/page.js",
+  "/(dashboard)/staffs/page": "app/(dashboard)/staffs/page.js",
+  "/(landing)/page": "app/(landing)/page.js"
 }

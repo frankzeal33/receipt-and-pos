@@ -16,6 +16,7 @@ import { toast } from 'react-toastify'
 import { axiosClient } from '@/GlobalApi'
 import { z } from 'zod'
 import SkeletonFull from '@/components/SkeletonFull'
+import { ActiveStatus } from '@/components/ActiveStatus'
 
 type profileType = {
     first_name: string,
@@ -236,7 +237,7 @@ const Page = () => {
                                         </div>
                                         <div className="text-right">
                                             <Label htmlFor="email" className='text-right'>Status</Label>
-                                            <h3 className={`rounded-md px-2 font-medium py-0.5 w-fit ${originalProfile?.status === "ACTIVE" ? "bg-green-100 text-green-500" : "bg-red-100 text-red-500"}`}>{originalProfile?.status}</h3>
+                                            <ActiveStatus status={originalProfile?.status}/>
                                         </div>
                                     </div>
                                     <div className='grid gap-6 md:grid-cols-2'>

@@ -92,8 +92,8 @@ export const changeUserPassword = asyncHandler(async (req: Request, res: Respons
     const isMatch = await bcrypt.compare(oldPassword, user.password);
     
     if (!isMatch) {
-        res.status(400);
-        throw new Error("Old password is incorrect");
+      res.status(400);
+      throw new Error("Old password is incorrect");
     }
 
     const isSamePassword = await bcrypt.compare(newPassword, user.password);

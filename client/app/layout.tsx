@@ -6,6 +6,7 @@ import { ToastContainer } from "react-toastify";
 import 'lightgallery/css/lightgallery.css';
 import 'lightgallery/css/lg-zoom.css';
 import 'lightgallery/css/lg-thumbnail.css';
+import Script from "next/script";
 
 import Swiper from "swiper";
 import { Navigation } from "swiper/modules";
@@ -54,6 +55,10 @@ export default function RootLayout({
           draggable
           pauseOnHover
           theme="colored" // This helps add background colors to types
+        />
+        <Script
+          src="https://js.paystack.co/v1/inline.js"
+          strategy="afterInteractive"
         />
       </body>
     </html>

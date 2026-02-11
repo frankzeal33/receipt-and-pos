@@ -2,25 +2,17 @@
 
 import * as React from "react"
 import {
-  AudioWaveform,
+  Split,
   Banknote,
   Bell,
-  BookOpen,
-  Bot,
   CircleUserRound,
-  Command,
-  CreditCard,
   FileText,
-  Frame,
   LayoutDashboard,
   Package,
-  PieChart,
   RefreshCcw,
   ScrollText,
   Settings,
-  Settings2,
   ShoppingBag,
-  SquareTerminal,
   Users,
 } from "lucide-react"
 import {
@@ -39,19 +31,19 @@ import { TeamSwitcher } from "./TeamSwitcher"
 const data = {
   teams: [
     {
-      name: "RIPE",
-      logo: Package,
-      plan: "Basic",
+      name: "Branches",
+      logo: Split,
+      link: "/branches"
     },
     {
-      name: "Acme Corp.",
-      logo: AudioWaveform,
-      plan: "Startup",
+      name: "Staffs",
+      logo: Users,
+      link: "/staffs"
     },
     {
-      name: "Evil Corp.",
-      logo: Command,
-      plan: "Free",
+      name: "Settings",
+      logo: Settings,
+      link: "/settings"
     },
   ],
   navMain: [
@@ -93,7 +85,7 @@ const data = {
     },
     {
       title: "Expenses",
-      url: "expenses",
+      url: "/expenses",
       icon: Banknote
     },
     {
@@ -122,7 +114,7 @@ const data = {
     },
     {
       title: "Settings",
-      url: "settings",
+      url: "/settings",
       icon: Settings
     },
   ]

@@ -2,6 +2,7 @@ import { Calculator, ChartColumnBig, Clock, Computer, CreditCard, FileText, Life
 import { SiWhatsapp } from "react-icons/si";
 import { LuMessageCircleQuestion } from "react-icons/lu";
 import { HiOutlineLightBulb } from "react-icons/hi";
+import { PricingPlan } from '@/types/General';
 
 const quickLinks = [
     {
@@ -187,14 +188,14 @@ const inquireMore = [
     }
 ]
 
-const pricing = [
+const pricing: PricingPlan[] = [
     {
         id: 1,
         name: 'FREE',
         desc: 'This package is perfect for beginners who need constant help',
         prices: {
-            monthly: 29.99,
-            yearly: 299.99,
+            monthly: 0.00,
+            yearly: 0.00,
         },
         bestValue: false,
         features: [

@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 26, "column": 0}, "map": {"version":3,"sources":["file:///Users/user/Documents/my%20websites/receipt-and-pos/client/app/%28dashboard%29/plan/payment-history/page.tsx"],"sourcesContent":["const page = () => {\n  return (\n    <div>page</div>\n  )\n}\n\nexport default page"],"names":[],"mappings":";;;;;;AAAA,MAAM,OAAO;IACX,qBACE,6WAAC;kBAAI;;;;;;AAET;uCAEe"}}]
+}

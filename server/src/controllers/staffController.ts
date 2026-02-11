@@ -1,8 +1,6 @@
-import bcrypt from "bcryptjs";
 import { Request, Response } from "express";
 import expressAsyncHandler from "express-async-handler";
 import prisma from "../utils/db.ts";
-import logger from "../utils/logger.ts";
 import { addExpenseInput, addInvoiceInput, addProductInput, addStaffInput, deleteInvoiceInput, deleteStaffInput, editExpenseInput, editInvoiceInput, editProductInput, editStaffInput, expenseIdInput, getInvoiceByIdInput, paginationCategoryInput, paginationInput, productIdInput } from "../types/zodtypes/staffType.ts";
 import { hashPassword } from "../utils/hash.ts";
 import { cleanInput } from "../utils/helpers.ts";

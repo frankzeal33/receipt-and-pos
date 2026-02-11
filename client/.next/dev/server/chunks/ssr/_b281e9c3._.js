@@ -273,8 +273,8 @@ const pricing = [
         name: 'FREE',
         desc: 'This package is perfect for beginners who need constant help',
         prices: {
-            monthly: 29.99,
-            yearly: 299.99
+            monthly: 0.00,
+            yearly: 0.00
         },
         bestValue: false,
         features: [

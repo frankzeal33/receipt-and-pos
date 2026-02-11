@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 26, "column": 0}, "map": {"version":3,"sources":["file:///Users/user/Documents/my%20websites/receipt-and-pos/client/components/Title.tsx"],"sourcesContent":["import React, { ReactElement } from 'react'\r\n\r\nconst Title = ({title, children}: {title: string; children?: ReactElement}) => {\r\n  return (\r\n    <div className='w-full mb-4 flex flex-col md:flex-row md:items-end gap-4 justify-between'>\r\n        <div>\r\n          <h1 className='text-2xl font-semibold'>{title}</h1>\r\n        </div>\r\n        <div>\r\n          {children}\r\n        </div>\r\n    </div>\r\n  )\r\n}\r\n\r\nexport default Title"],"names":[],"mappings":";;;;;;AAEA,MAAM,QAAQ,CAAC,EAAC,KAAK,EAAE,QAAQ,EAA2C;IACxE,qBACE,6WAAC;QAAI,WAAU;;0BACX,6WAAC;0BACC,cAAA,6WAAC;oBAAG,WAAU;8BAA0B;;;;;;;;;;;0BAE1C,6WAAC;0BACE;;;;;;;;;;;;AAIX;uCAEe"}},
+    {"offset": {"line": 69, "column": 0}, "map": {"version":3,"sources":["file:///Users/user/Documents/my%20websites/receipt-and-pos/client/app/%28dashboard%29/plan/subscription/page.tsx"],"sourcesContent":["import Title from \"@/components/Title\"\n\nconst page = () => {\n  return (\n    <div className=\"my-container\">\n        <Title title='Subscription & Usage'/>\n    </div>\n  )\n}\n\nexport default page"],"names":[],"mappings":";;;;;AAAA;;;AAEA,MAAM,OAAO;IACX,qBACE,6WAAC;QAAI,WAAU;kBACX,cAAA,6WAAC,+HAAK;YAAC,OAAM;;;;;;;;;;;AAGrB;uCAEe"}}]
+}

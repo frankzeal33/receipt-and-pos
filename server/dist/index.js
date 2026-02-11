@@ -12,12 +12,14 @@ import saleRoute from "./routes/saleRoutes.js";
 import aiRoute from "./routes/aiRoutes.js";
 import profileRoute from "./routes/profileRoutes.js";
 import paymentRoute from "./routes/paymentRoutes.js";
+import subscriptionRoute from "./routes/subscriptionRoutes.js";
+import branchRoute from "./routes/branchRoutes.js";
 import { rateLimitByIP } from "./middlewares/rateLimiterMiddleware.js";
 import logger from "./utils/logger.js";
 import { auditLoggerMiddleware } from "./middlewares/auditLoggerMiddleware.js";
 import { UserIDForLogMiddleware } from "./middlewares/UserIDForLogMiddleware.js";
 import { browserMobileOnlyMiddleware } from "./middlewares/browserMobileOnlyMiddleware.js";
-import { protectAll, protectCEO_COCEO_GENERAL_ALL_MANAGER } from "./middlewares/authMiddleware.js";
+import { protectAll, protectCEO_COCEO_GENERAL, protectCEO_COCEO_GENERAL_ALL_MANAGER } from "./middlewares/authMiddleware.js";
 dotenv.config();
 const port = process.env.PORT || 5000;
 const app = express();
@@ -52,7 +54,9 @@ app.use('/api/v1/staffs', protectAll, protectCEO_COCEO_GENERAL_ALL_MANAGER, staf
 app.use('/api/v1/sales', protectAll, saleRoute);
 app.use('/api/v1/ai', protectAll, aiRoute);
 app.use('/api/v1/profile', protectAll, profileRoute);
-app.use("/api/v1/payments", paymentRoute);
+app.use("/api/v1/payment", protectAll, paymentRoute);
+app.use("/api/v1/subscription", protectAll, subscriptionRoute);
+app.use("/api/v1/branches", protectAll, protectCEO_COCEO_GENERAL, branchRoute);
 app.get("/", rateLimitByIP(100, 60), (req, res) => {
     res.status(200).send("server is ready");
 });

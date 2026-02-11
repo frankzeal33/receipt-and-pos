@@ -2,7 +2,7 @@ export type Billing = "monthly" | "yearly"
 
 export type PricingPlan = {
   id: number
-  name: string
+  name: SubscriptionPlan
   desc: string
   bestValue: boolean
   prices: {
@@ -258,4 +258,44 @@ export type expenseType = {
   branchId: string | null,
   createdAt: string;
   updatedAt: string;
+}
+
+export type HistoryType = {
+  amount: number;
+  billing: BillingCycle;
+  channel: string;
+  companyId: string;
+  createdAt: string;
+  currency: string;
+  user: {
+    email: string;
+    role: string;
+  }
+  id: string;
+  plan: SubscriptionPlan;
+  reference: string;
+  status: string;
+  userId: string;
+}
+
+export type BillingCycle = "MONTHLY" | "YEARLY"
+export type SubscriptionPlan = "FREE" | "BASIC" | "BUSINESS" | "ENTERPRISE"
+
+export type SubscriptionType = {
+  active: boolean
+  billing: BillingCycle
+  createdAt: string
+  subscribedAt: string
+  expiresAt: string
+  plan: SubscriptionPlan
+}
+
+export type BranchType = {
+  companyId: string;
+  createdAt: string;
+  id: string;
+  location: string | null;
+  name: string;
+  updatedAt: string;
+  status: StaffStatus
 }

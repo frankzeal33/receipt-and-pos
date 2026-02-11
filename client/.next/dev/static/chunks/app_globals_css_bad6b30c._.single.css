@@ -834,6 +834,10 @@ body {
   height: 1px;
 }
 
+.h-\[20vh\] {
+  height: 20vh;
+}
+
 .h-\[250px\] {
   height: 250px;
 }
@@ -846,8 +850,20 @@ body {
   height: 4rem;
 }
 
+.h-\[50vh\] {
+  height: 50vh;
+}
+
 .h-\[58vh\] {
   height: 58vh;
+}
+
+.h-\[60vh\] {
+  height: 60vh;
+}
+
+.h-\[80vh\] {
+  height: 80vh;
 }
 
 .h-\[calc\(100\%-50px\)\] {

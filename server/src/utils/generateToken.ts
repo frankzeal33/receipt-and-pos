@@ -8,7 +8,7 @@ const generateToken = (res: Response, data: object, rememberMe = false) => {
     res.cookie("access", accessToken, {
         httpOnly: true,
         secure: process.env.NODE_ENV !== "development",
-        sameSite: 'none',
+        sameSite: 'strict',
         maxAge: rememberMe 
         ? 7 * 24 * 60 * 60 * 1000  // 7 days
         : 24 * 60 * 60 * 1000,      // 1 day
@@ -17,7 +17,7 @@ const generateToken = (res: Response, data: object, rememberMe = false) => {
     res.cookie("refresh", refreshToken, {
         httpOnly: true,
         secure: process.env.NODE_ENV !== "development",
-        sameSite: 'none',
+        sameSite: 'strict',
         maxAge: rememberMe 
         ? 60 * 24 * 60 * 60 * 1000  // 60 days
         : 30 * 24 * 60 * 60 * 1000,      // 30 day

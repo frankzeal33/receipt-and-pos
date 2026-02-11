@@ -13,12 +13,14 @@ import saleRoute from './routes/saleRoutes.ts'
 import aiRoute from './routes/aiRoutes.ts'
 import profileRoute from './routes/profileRoutes.ts'
 import paymentRoute from './routes/paymentRoutes.ts'
+import subscriptionRoute from './routes/subscriptionRoutes.ts'
+import branchRoute from './routes/branchRoutes.ts'
 import { rateLimitByIP } from "./middlewares/rateLimiterMiddleware.ts";
 import logger from "./utils/logger.ts";
 import { auditLoggerMiddleware } from "./middlewares/auditLoggerMiddleware.ts";
 import { UserIDForLogMiddleware } from "./middlewares/UserIDForLogMiddleware.ts";
 import { browserMobileOnlyMiddleware } from "./middlewares/browserMobileOnlyMiddleware.ts";
-import { protectAll, protectCEO_COCEO_GENERAL_ALL_MANAGER } from "./middlewares/authMiddleware.ts";
+import { protectAll, protectCEO_COCEO_GENERAL, protectCEO_COCEO_GENERAL_ALL_MANAGER } from "./middlewares/authMiddleware.ts";
 
 dotenv.config();
 
@@ -62,11 +64,13 @@ app.use(browserMobileOnlyMiddleware);  // block Postman/cURL
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use('/api/v1/users', userRoute);
-app.use('/api/v1/staffs', protectAll,  protectCEO_COCEO_GENERAL_ALL_MANAGER, staffRoute);
+app.use('/api/v1/staffs', protectAll, protectCEO_COCEO_GENERAL_ALL_MANAGER, staffRoute);
 app.use('/api/v1/sales', protectAll, saleRoute);
 app.use('/api/v1/ai', protectAll, aiRoute);
 app.use('/api/v1/profile', protectAll, profileRoute);
-app.use("/api/v1/payments", protectAll, paymentRoute)
+app.use("/api/v1/payment", protectAll, paymentRoute)
+app.use("/api/v1/subscription", protectAll, subscriptionRoute)
+app.use("/api/v1/branches", protectAll, protectCEO_COCEO_GENERAL, branchRoute)
 
 app.get("/", rateLimitByIP(100, 60), (req: Request, res: Response) => {
   res.status(200).send("server is ready")

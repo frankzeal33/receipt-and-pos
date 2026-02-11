@@ -1,6 +1,6 @@
 /**
- * Converts uppercase or underscored text (like "IN_ACTIVE") 
- * into title case (e.g. "In Active").
+ * Converts uppercase or underscored text (like "IN_PLACE") 
+ * into title case (e.g. "In Place").
  */
 export const formatEnums = (text: string): string => {
   if (!text) return "";

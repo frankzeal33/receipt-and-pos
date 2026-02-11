@@ -1,5 +1,5 @@
 "use client"
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { pricing } from '@/constants/data'
 import {
   Tabs,
@@ -7,11 +7,35 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs"
-import AuthPricingCard from '@/components/AuthPricingCard'
+import { axiosClient } from '@/GlobalApi'
+import UpgradePricingCard from '@/components/UpgradePricingCard'
+import { SubscriptionType } from '@/types/General'
+import { toast } from 'react-toastify'
+import PricingSkeleton from '@/components/PricingSkeleton'
 
 const page = () => {
 
   const [billing, setBilling] = useState<"monthly" | "yearly">("monthly")
+  const [subscriptionStatus, setSubscriptionStatus] = useState<SubscriptionType | null>(null)
+  const [loadingSubscription, setLoadingSubscription] = useState(true)
+
+  const getSubscription = async () => {
+    setLoadingSubscription(true)
+    try {
+      const result = await axiosClient.get("/subscription/get-subscription")
+
+      console.log(result.data)
+      setSubscriptionStatus(result.data?.result)
+    } catch (error: any) {
+      toast.error(error.response?.data?.message)
+    } finally {
+      setLoadingSubscription(false)
+    }
+  }
+
+  useEffect(() => {
+    getSubscription()
+  }, [])
 
   return (
     <div>
@@ -24,15 +48,20 @@ const page = () => {
             </TabsList>
           </div>
           <TabsContent value={billing}>
-            <div className="grid grid-cols-4 gap-4">
-              {pricing.map((priceInfo) => (
-                <AuthPricingCard
-                  key={priceInfo.id}
-                  priceInfo={priceInfo}
-                  billing={billing}
-                />
-              ))}
-            </div>
+            {loadingSubscription ? (
+              <PricingSkeleton/>
+            ): (
+              <div className="grid grid-cols-4 gap-4">
+                {pricing.map((priceInfo) => (
+                  <UpgradePricingCard
+                    key={priceInfo.id}
+                    priceInfo={priceInfo}
+                    billing={billing}
+                    currentSubscription={subscriptionStatus}
+                  />
+                ))}
+              </div>
+            )}
           </TabsContent>
         </Tabs>
       </div>
